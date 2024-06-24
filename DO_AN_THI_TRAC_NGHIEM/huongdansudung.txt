@@ -1,0 +1,10 @@
+Day la phan mem thi trac nghiem danh cho giao vien va sinh vien.
+Cac tinh nang:
+- Doi voi sinh vien: dung de xem danh sach lop, danh sach sinh vien, danh sach mon hoc va lam bai thi trac nghiem.
+- Doi voi giao vien: bao gom cac tinh nang cua sinh vien, dac quyen cua giao vien la them cac chuc nang them/xoa/hieu chinh.
+Huong dan lam bai thi trac nghiem:
+- Sau khi nhap day du thong tin bao gom mon thi, so cau thi, so phut thi theo dung yeu cau cua phan men thi hay click chuot
+vao vi tri bat dau thi.
+- Vao trang thi, de biet dap an minh chon thi nhin qua goc phai man hinh, luu y thoi gian dem nguoc tren man hinh.
+- Sau khi bam nut nop bai, neu ban la sinh vien thi he thong se tu dong luu diem cua ban, con giao vien se khong duoc luu.
+- Neu muon xem lai diem hay vao danh sach sinh vien.

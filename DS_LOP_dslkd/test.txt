@@ -1,0 +1,133 @@
+PTRSV new_node(SV sv) {
+    PTRSV p = new nodeSV;
+    p->dssv = sv;
+    p->next = NULL;
+    return p;
+}
+
+//  nhap thong tin sv
+void input_sv(SV &sv) {
+    cout << "Nhap ma sinh vien: ";
+    cin.getline(sv.MASV, 15);
+
+    cout << "Nhap ho sinh vien: ";
+    cin.getline(sv.HO, 51);
+
+    cout << "Nhap ten sinh vien: ";
+    cin.getline(sv.TEN, 11);
+
+    cout << "Nhap gioi tinh (1: Nam, 0: Nu): ";
+    cin >> sv.PHAI;
+    cin.ignore();
+
+    cout << "Nhap password: ";
+    cin.getline(sv.password, 20);
+}
+
+// them sinh vien
+void add_sv(PTRSV &head, SV sv) 
+{
+    PTRSV p = new_node(sv);
+
+    if (head == first) 
+	{    // them dau
+        head = p;
+    } 
+	else 
+	{
+        PTRSV temp = head; // them sau
+        while (temp->next != NULL) 
+		{
+            temp = temp->next;
+        }
+        temp->next = p;
+    }
+}
+
+// nhap dssv
+void input_dssv(LOP &lop) {
+    int n;
+    cout << "Nhap so sinh vien cua lop: ";
+    cin >> n;
+    cin.ignore();
+
+    for (int i = 0; i < n; i++) {
+        SV sv;
+        input_sv(sv);
+        add_sv(lop.dssv, sv);
+    }
+}
+
+// tim lop trong danh sach lop theo ma
+int find_lop(List_LOP &ds_lop, char malop[]) {
+    for (int i = 0; i < ds_lop.n; i++) {
+        if (strcmp(ds_lop.node[i]->MALOP, malop) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+// Nhap thong tin va them dssv
+
+void xuat_danh_sach_sinh_vien_ra_file(List_LOP dsLop) 
+{
+	PTRSV pSV = dsLop.node[0]->dssv;	
+    ofstream f("dslop.txt");
+    if (f.is_open()) 
+	{
+    	while(pSV != NULL )
+    	{
+    		f << pSV->dssv.MASV<< "-"<< pSV->dssv.HO <<" "<<pSV->dssv.TEN<<"-" <<pSV->dssv.PHAI<<"-"<<pSV->dssv.password<<endl;
+    		pSV = pSV->next;
+		}
+        f.close(); 
+        cout << "Da xuat danh sach sinh vien vao file lop.txt" << endl;
+    } 
+	else 
+	{
+        cout << "Khong the mo file dslop.txt de ghi." << endl;
+    }
+}
+
+void input_lop(List_LOP &ds_lop) {
+	LOP lop;
+    input_dssv(lop);
+    ds_lop.node[ds_lop.n++] = new LOP(lop);
+    xuat_danh_sach_sinh_vien_ra_file(ds_lop);
+}
+
+
+void in_ds_sv_mot_lop(List_LOP ds_lop) {
+    char ma_lop[15];
+    cout << "Nhap ma lop can in danh sach sinh vien: ";
+    cin.getline(ma_lop, 15);
+
+    bool found = false;
+    for (int i = 0; i < ds_lop.n; i++) 
+	{
+        LOP lop = *(ds_lop.node[i]);
+        if (strcmp(lop.MALOP, ma_lop) == 0) 
+		{
+            found = true;
+            cout << "Ma lop: " << lop.MALOP << endl;
+            cout << "Ten lop: " << lop.TENLOP << endl;
+            cout << "Nien khoa: " << lop.Nienkhoa << endl;
+            cout << "Danh sach sinh vien: " << endl;
+            
+            PTRSV p = lop.dssv;
+            
+            while (p != NULL) 
+			{
+ //           	cout <<"Tuan dep trai";
+                cout << p->dssv.MASV << " - " << p->dssv.HO << " " << p->dssv.TEN << endl;
+                p = p->next;
+            }
+            
+        }
+    }
+
+    if (!found) {
+        cout << "Khong tim thay lop co ma " << ma_lop << endl;
+    }
+}
